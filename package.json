@@ -1,0 +1,26 @@
+{
+  "name": "sample-todo-reactjs",
+  "version": "1.0.0",
+  "description": "Basic example of Todo app written in pure ReactJS",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/volkovasystems/sample-todo-reactjs.git"
+  },
+  "keywords": [
+    "todo-app",
+    "reactjs"
+  ],
+  "author": "Richeve S. Bebedor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/volkovasystems/sample-todo-reactjs/issues"
+  },
+  "homepage": "https://github.com/volkovasystems/sample-todo-reactjs",
+  "devDependencies": {
+    "react-tools": "^0.11.2"
+  }
+}

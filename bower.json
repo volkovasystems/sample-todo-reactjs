@@ -1,0 +1,37 @@
+{
+  "name": "sample-todo-reactjs",
+  "version": "1.0.0",
+  "homepage": "https://github.com/volkovasystems/sample-todo-reactjs",
+  "authors": [
+    "Richeve Bebedor <richeve.bebedor@gmail.com>"
+  ],
+  "description": "Basic example of Todo app written in pure ReactJS",
+  "main": "index.html",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "todo-app",
+    "reactjs"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.11.2",
+    "bootstrap": "~3.2.0"
+  },
+  "devDependencies": {
+    "lodash": "~2.4.1"
+  }
+}
