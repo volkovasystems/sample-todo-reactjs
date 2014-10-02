@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+//: var React = require( "react/addons" );
+
 var todoInput = React.createClass( {
 	"getInitialState": function getInitialState( ){
 		return {
@@ -42,3 +44,5 @@ var todoInput = React.createClass( {
 		);
 	}
 } );
+
+//: module.exports = todoInput;

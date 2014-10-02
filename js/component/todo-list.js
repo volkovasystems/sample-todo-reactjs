@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+//: var React = require( "react/addons" );
+
 var todoList = React.createClass( {
 	"getInitialState": function getInitialState( ){
 		return {
@@ -62,3 +64,5 @@ var todoList = React.createClass( {
 		);
 	}
 } );
+
+//: module.exports = todoList;

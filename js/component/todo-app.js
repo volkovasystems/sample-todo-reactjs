@@ -1,5 +1,9 @@
 /** @jsx React.DOM */
 
+//: var todoInput = require( "todo-input.js" );
+//: var todoList = require( "todo-list.js" );
+//: var React = require( "react/addons" );
+
 var todoApp = React.createClass( {
 	"getInitialState": function getInitialState( ){
 		return {
@@ -31,3 +35,5 @@ var todoApp = React.createClass( {
 } );
 
 React.renderComponent( <todoApp />, $( "section.todo-app" )[ 0 ] );
+
+//: module.exports = todoApp;
