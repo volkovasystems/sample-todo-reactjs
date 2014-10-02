@@ -1,6 +1,12 @@
 /** @jsx React.DOM */
 
 var todoList = React.createClass( {
+	"getInitialState": function getInitialState( ){
+		return {
+			"todoList": [ ] 
+		};
+	},
+
 	"onTodoRemove": function onTodoRemove( event ){
 		var todoList = this.props.todoList;
 		todoList = _.remove( todoList, 
@@ -44,8 +50,14 @@ var todoList = React.createClass( {
 	"render": function onRender( ){
 		return (
 			<div className="todo-list-container list-group">
-				{ this.props.todoList.map( this.onEachTodo ) }	
+				{ this.state.todoList.map( this.onEachTodo ) }	
 			</div>
 		);
+	},
+
+	"componentDidMount": function componentDidMount( ){
+		this.setState( {
+			"todoList": this.props.todoList
+		} );
 	}
 } );
