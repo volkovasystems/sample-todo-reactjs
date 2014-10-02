@@ -8,10 +8,11 @@ var todoList = React.createClass( {
 	},
 
 	"onTodoRemove": function onTodoRemove( event ){
-		var todoList = this.props.todoList;
-		todoList = _.remove( todoList, 
+		var todoList = this.state.todoList;
+		
+		_.remove( todoList, 
 			function onEachTodo( todo ){
-				return todo != event.currentTarget.value;
+				return todo === event.currentTarget.value;
 			} );
 
 		this.props.parentComponent.setState( {
@@ -47,17 +48,17 @@ var todoList = React.createClass( {
 		);
 	},
 
+	"componentWillReceiveProps": function componentWillReceiveProps( nextProps ){
+		this.setState( {
+			"todoList": nextProps.todoList
+		} );
+	},
+
 	"render": function onRender( ){
 		return (
 			<div className="todo-list-container list-group">
 				{ this.state.todoList.map( this.onEachTodo ) }	
 			</div>
 		);
-	},
-
-	"componentDidMount": function componentDidMount( ){
-		this.setState( {
-			"todoList": this.props.todoList
-		} );
 	}
 } );
