@@ -4,6 +4,8 @@
   "description": "Basic example of Todo app written in pure ReactJS",
   "main": "index.html",
   "scripts": {
+    "preinstall": "npm install bower -g",
+    "postinstall": "bower install && jsx js/component js/build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
