@@ -1,7 +1,5 @@
 /** @jsx React.DOM */
 
-//: var React = require( "react/addons" );
-
 var todoInput = React.createClass( {
 	"getInitialState": function getInitialState( ){
 		return {
@@ -35,7 +33,7 @@ var todoInput = React.createClass( {
 		return (
 			<div className="todo-input-container">
 				<input 
-					className="form-control"
+					className="todo-input form-control"
 					type="text"
 					value={ this.state.todo }
 					onChange={ this.onChange }
@@ -44,5 +42,3 @@ var todoInput = React.createClass( {
 		);
 	}
 } );
-
-//: module.exports = todoInput;

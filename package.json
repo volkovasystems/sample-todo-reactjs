@@ -4,9 +4,9 @@
   "description": "Basic example of Todo app written in pure ReactJS",
   "main": "index.html",
   "scripts": {
-    "preinstall": "npm install bower gulp jest-cli -g",
+    "preinstall": "npm install bower gulp -g",
     "postinstall": "bower install && jsx js/component js/build && gulp",
-    "test": "jest .+-test.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,18 +22,25 @@
     "url": "https://github.com/volkovasystems/sample-todo-reactjs/issues"
   },
   "homepage": "https://github.com/volkovasystems/sample-todo-reactjs",
+  "dependencies": {
+    "react": "*",
+    "react-tools": "*"
+  },
   "devDependencies": {
+    "async": "^0.9.0",
+    "connect": "^3.2.0",
     "gulp": "^3.8.8",
     "gulp-clean": "^0.3.1",
-    "gulp-filter": "^1.0.2",
-    "gulp-replace": "^0.4.0",
-    "jest-cli": "^0.1.18",
+    "gulp-embedlr": "^0.5.2",
+    "gulp-livereload": "^2.1.1",
+    "gulp-mocha": "^1.1.0",
+    "gulp-react": "^1.0.2",
+    "gulp-rename": "^1.2.0",
+    "gulp-wait": "0.0.2",
     "react": "^0.11.2",
-    "react-tools": "^0.11.2"
-  },
-  "jest": {
-    "testDirectoryName": "test",
-    "scriptPreprocessor": "<rootDir>/react-preprocessor.js",
-    "unmockedModulePathPatterns": [ "<rootDir>/node_modules/react" ]
+    "react-tools": "^0.11.2",
+    "serve-static": "^1.6.3",
+    "should": "^4.0.4",
+    "zombie": "^2.0.4"
   }
 }
