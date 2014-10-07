@@ -4,7 +4,7 @@
   "description": "Basic example of Todo app written in pure ReactJS",
   "main": "index.html",
   "scripts": {
-    "preinstall": "npm install bower gulp -g",
+    "preinstall": "./install",
     "postinstall": "bower install && jsx js/component js/build && gulp",
     "test": "jest"
   },
@@ -22,12 +22,7 @@
     "url": "https://github.com/volkovasystems/sample-todo-reactjs/issues"
   },
   "homepage": "https://github.com/volkovasystems/sample-todo-reactjs",
-  "dependencies": {
-    "react": "*",
-    "react-tools": "*"
-  },
   "devDependencies": {
-    "async": "^0.9.0",
     "connect": "^3.2.0",
     "gulp": "^3.8.8",
     "gulp-clean": "^0.3.1",
@@ -41,6 +36,7 @@
     "react-tools": "^0.11.2",
     "serve-static": "^1.6.3",
     "should": "^4.0.4",
-    "zombie": "^2.0.4"
+    "webdriverio": "^2.2.3",
+    "yargs": "^1.3.2"
   }
 }

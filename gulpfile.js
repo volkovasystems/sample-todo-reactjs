@@ -9,6 +9,8 @@ var rename = require( "gulp-rename" );
 
 var connect = require( "connect" );
 var serveStatic = require( "serve-static" );
+var childprocess = require( "child_process" );
+var argv = require( "yargs" ).argv;
 
 gulp.task( "default", [ "clean-build", "build-module", "build-index" ] );
 
@@ -20,6 +22,7 @@ gulp.task( "clean-build",
 	} );
 
 gulp.task( "build-module",
+	[ "clean-build" ],
 	function buildTask( ){
 		return gulp
 			.src( "js/component/*.js" )
@@ -28,6 +31,7 @@ gulp.task( "build-module",
 	} );
 
 gulp.task( "build-index",
+	[ "clean-build", "build-module" ],
 	function buildTask( ){
 		return gulp
 			.src( "./_index.html" )
@@ -36,7 +40,48 @@ gulp.task( "build-index",
 			.pipe( gulp.dest( "." ) );
 	} );
 
-gulp.task( "test", 
+var serverTask = { };
+gulp.task( "server",
+	[ "clean-build", "build-module", "build-index" ],
+	function serverTask( done ){
+		if( !serverTask.server ){
+			serverTask.server = connect( );
+			serverTask.server.use( serveStatic( "." ) ).listen( 8080, done );
+
+		}else{
+			done( );
+		}
+	} );
+
+var seleniumTask = { };
+gulp.task( "server-selenium",
+	function serverTask( done ){
+		if( !seleniumTask.task ){
+			seleniumTask.task = childprocess.exec( "java -jar selenium-server-standalone-2.42.2.jar" );
+
+			if( argv.seleniumLog ){
+				seleniumTask.task.stdout.on( "data",
+					function onData( data ){
+						console.log( "" + data );
+					} );
+
+				seleniumTask.task.stderr.on( "data",
+					function onData( data ){
+						console.log( "" + data );
+					} );	
+			}
+			
+			process.on( "exit",
+				function onExit( ){
+					seleniumTask.task.kill( );
+				} );
+		}
+
+		done( );
+	} );
+
+gulp.task( "test",
+	[ "server", "server-selenium" ],
 	function testTask( ){
 		return gulp
 			.src( "test/*.js", { "read": false } )
@@ -44,14 +89,8 @@ gulp.task( "test",
 			.pipe( mocha( { "timeout": 5000 } ) );
 	} );
 
-gulp.task( "server",
-	function serverTask( done ){
-		var server = connect( );
-		server.use( serveStatic( "." ) ).listen( 8080, done );
-	} );
-
 gulp.task( "watch",
-	[ "build-module", "build-index", "server" ],
+	[ "build-module", "build-index", "server", "server-selenium" ],
 	function watchTask( ){
 		var server = livereload( );
 

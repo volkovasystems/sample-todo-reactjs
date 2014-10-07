@@ -1,37 +1,43 @@
-var Browser = require( "zombie" );
+var webdriver = require( "webdriverio" );
+var assert = require( "assert" );
+var should = require( "should" );
 
 describe( "todoApp",
 	function testTodoApp( ){
-		before( function onBefore( ){
-			this.browser = new Browser( { "site": "http://localhost:8080/", "debug": true } ); 
 
-			this.browser.on( "error",
-				function onError( error ){
-					console.error( error );
-				} );
-		} );
+		this.timeout( 99999999 );
+		var client = null;
 
 		before( function onBefore( done ){
-			var self = this;
-
-			this.browser.visit( "/" );
-
-			this.browser.wait( function onPageLoaded( window ){
-				return window.document.querySelector( ".todo-app-container" );
-
-			}, function callback( ){
-				done( );
+			client = webdriver.remote( { 
+				"desiredCapabilities": {
+					"browserName": "phantomjs"
+				}
 			} );
+
+			client.init( done );
 		} );
 
 		it( "should render todoApp, todoInput and todoList",
-			function testCase( ){
-				this.browser.assert.element( ".todo-app-container" );
-				this.browser.assert.element( ".todo-input-container" );
-				this.browser.assert.element( ".todo-list-container" );
+			function testCase( done ){
+				client
+					.url( "http://localhost:8080/" )
+					.getAttribute( ".todo-app-container", "class",
+						function onResult( error, attribute ){
+							should( attribute ).containEql( "todo-app-container" );
+						} )
+					.getAttribute( ".todo-input-container", "class",
+						function onResult( error, attribute ){
+							should( attribute ).containEql( "todo-input-container" );
+						} )
+					.getAttribute( ".todo-list-container", "class",
+						function onResult( error, attribute ){
+							should( attribute ).containEql( "todo-list-container" );
+						} )
+					.call( done );
 			} );
 
-		after( function onAfter( ){
-			this.browser.close( );
+		after( function onAfter( done ){
+			client.end( done );
 		} );
 	} );

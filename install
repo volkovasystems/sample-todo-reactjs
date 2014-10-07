@@ -1,0 +1,12 @@
+#!/bin/sh
+npm install bower gulp -g
+
+if [ ! -f ./selenium-server-standalone-*.jar ]; then
+	curl -O http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
+fi
+
+brew update 
+
+brew unlink phantomjs
+
+brew install phantomjs
