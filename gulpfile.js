@@ -80,8 +80,15 @@ gulp.task( "server-selenium",
 		done( );
 	} );
 
+gulp.task( "clean-screenshot",
+	function cleanTask( ){
+		return gulp
+			.src( "*.png" )
+			.pipe( clean( { "force": true } ) )
+	} );
+
 gulp.task( "test",
-	[ "server", "server-selenium" ],
+	[ "clean-screenshot", "server", "server-selenium" ],
 	function testTask( ){
 		return gulp
 			.src( "test/*.js", { "read": false } )
@@ -90,7 +97,7 @@ gulp.task( "test",
 	} );
 
 gulp.task( "watch",
-	[ "build-module", "build-index", "server", "server-selenium" ],
+	[ "clean-screenshot", "build-module", "build-index", "server", "server-selenium" ],
 	function watchTask( ){
 		var server = livereload( );
 

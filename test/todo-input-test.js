@@ -1,5 +1,4 @@
 var webdriver = require( "webdriverio" );
-var assert = require( "assert" );
 var should = require( "should" );
 
 describe( "todoInput",
@@ -27,6 +26,7 @@ describe( "todoInput",
 						function onResult( error, value ){
 							should( value ).equal( "Hello World" );
 						} )
+					.saveScreenshot( "todo-input-test-shot-1.png" )
 					.call( done );
 			} );
 
@@ -34,7 +34,9 @@ describe( "todoInput",
 			function testCase( done ){
 				client
 					.url( "http://localhost:8080/" )
-					.setValue( ".todo-input", "Hello World\n" )
+					.setValue( ".todo-input", "Hello World" )
+					.saveScreenshot( "todo-input-test-shot-2-a.png" )
+					.addValue( ".todo-input", "\n" )
 					.elements( ".todo-item",
 						function onResult( error, elements ){
 							should( elements.value ).have.a.lengthOf( 1 );
@@ -43,6 +45,7 @@ describe( "todoInput",
 						function onResult( error, html ){
 							should( html ).containEql( "Hello World" );
 						} )
+					.saveScreenshot( "todo-input-test-shot-2-b.png" )
 					.call( done );
 			} );
 

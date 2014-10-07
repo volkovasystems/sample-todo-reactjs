@@ -35,6 +35,7 @@ var todoInput = React.createClass( {
 				<input 
 					className="todo-input form-control"
 					type="text"
+					placeholder="TYPE SOMETHING AND PRESS ENTER TO ADD TODO"
 					value={ this.state.todo }
 					onChange={ this.onChange }
 					onKeyPress={ this.onKeyPress } />

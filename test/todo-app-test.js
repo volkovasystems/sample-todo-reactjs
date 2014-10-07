@@ -34,6 +34,7 @@ describe( "todoApp",
 						function onResult( error, attribute ){
 							should( attribute ).containEql( "todo-list-container" );
 						} )
+					.saveScreenshot( "todo-app-test-shot-1.png" )
 					.call( done );
 			} );
 

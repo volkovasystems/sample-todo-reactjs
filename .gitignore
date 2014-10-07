@@ -5,3 +5,4 @@ test/*.js
 !test/*-test.js
 *.jar
 index.html
+*.png

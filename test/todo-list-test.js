@@ -35,6 +35,7 @@ describe( "todoList",
 						function onResult( error, html ){
 							should( html ).containEql( "Hello World" );
 						} )
+					.saveScreenshot( "todo-list-test-shot-1-a.png" )
 					.setValue( ".todo-input", "Hello Philippines\n" )
 					.elements( ".todo-item",
 						function onResult( error, elements ){
@@ -48,6 +49,7 @@ describe( "todoList",
 						function onResult( error, html ){
 							should( html ).containEql( "Hello Philippines" );
 						} )
+					.saveScreenshot( "todo-list-test-shot-1-b.png" )
 					.setValue( ".todo-input", "Hello America\n" )
 					.elements( ".todo-item",
 						function onResult( error, elements ){
@@ -61,6 +63,7 @@ describe( "todoList",
 						function onResult( error, html ){
 							should( html ).containEql( "Hello America" );
 						} )
+					.saveScreenshot( "todo-list-test-shot-1-c.png" )
 					.call( done );
 			} );
 
@@ -76,11 +79,13 @@ describe( "todoList",
 						function onResult( error, elements ){
 							should( elements.value ).have.a.lengthOf( 4 );
 						} )
+					.saveScreenshot( "todo-list-test-shot-2-a.png" )
 					.click( ".todo-item:nth-child(2) button" )
 					.elements( ".todo-item",
 						function onResult( error, elements ){
 							should( elements.value ).have.a.lengthOf( 3 );
 						} )
+					.saveScreenshot( "todo-list-test-shot-2-b.png" )
 					.call( done );
 			} );
 
@@ -99,11 +104,13 @@ describe( "todoList",
 						function onResult( error, elements ){
 							should( elements.value ).have.a.lengthOf( 7 );
 						} )
+					.saveScreenshot( "todo-list-test-shot-3-a.png" )
 					.click( ".todo-item:nth-child(1) button" )
 					.elements( ".todo-item",
 						function onResult( error, elements ){
 							should( elements.value ).have.a.lengthOf( 3 );
 						} )
+					.saveScreenshot( "todo-list-test-shot-3-b.png" )
 					.call( done );
 			} );
 
