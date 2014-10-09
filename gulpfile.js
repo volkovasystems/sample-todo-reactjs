@@ -53,6 +53,18 @@ gulp.task( "server",
 		}
 	} );
 
+gulp.task( "server-qunit",
+	[ "clean-build", "build-module", "build-index" ],
+	function serverTask( done ){
+		if( !serverTask.serverQunit ){
+			serverTask.serverQunit = connect( );
+			serverTask.serverQunit.use( serveStatic( "." ) ).listen( 9090, done );
+
+		}else{
+			done( );
+		}
+	} );
+
 var seleniumTask = { };
 gulp.task( "server-selenium",
 	function serverTask( done ){
@@ -88,7 +100,7 @@ gulp.task( "clean-screenshot",
 	} );
 
 gulp.task( "test",
-	[ "clean-screenshot", "server", "server-selenium" ],
+	[ "clean-screenshot", "server", "server-selenium", "server-qunit" ],
 	function testTask( ){
 		return gulp
 			.src( "test/*.js", { "read": false } )
@@ -97,14 +109,16 @@ gulp.task( "test",
 	} );
 
 gulp.task( "watch",
-	[ "clean-screenshot", "build-module", "build-index", "server", "server-selenium" ],
+	[ "clean-screenshot", "build-module", "build-index", "server", "server-selenium", "server-qunit" ],
 	function watchTask( ){
 		var server = livereload( );
 
 		gulp.watch( [ 
 				"./js/component/*.js",
 				"./_index.html",
-				"./test/*.js"
+				"./test/*.js",
+				"./tdd/*.js",
+				"./tdd/*.html"
 			],
 			[ "build-module", "build-index", "test" ] )
 			.on( "change", 

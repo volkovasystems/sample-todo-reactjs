@@ -34,5 +34,9 @@
     "es5-shim": "~4.0.3",
     "phantomjs-shims": "https://rawgit.com/facebook/react/master/src/test/phantomjs-shims.js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "qunit": "~1.15.0",
+    "sinon-1.10.3": "http://sinonjs.org/releases/sinon-1.10.3.js",
+    "jshamcrest": "http://danielmartins.ninja/jshamcrest/jshamcrest.js"
+  }
 }

@@ -27,6 +27,10 @@ var todoApp = React.createClass( {
 		"emptyData": function emptyData( ){
 			todoApp.data.instanceSet = { };
 			todoApp.data.instance = null;
+		},
+
+		"render": function render( ){
+			return React.renderComponent( todoApp.create( true ), $( "section.todo-app" )[ 0 ] );
 		}
 	},
 
@@ -58,6 +62,3 @@ var todoApp = React.createClass( {
 		);
 	}
 } );
-
-
-React.renderComponent( todoApp.create( true ), $( "section.todo-app" )[ 0 ] );
