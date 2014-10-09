@@ -18,6 +18,160 @@ describe( "todoList",
 			client.init( done );
 		} );
 
+		it( "should have a todoListComponent ReactJS component class",
+			function testCase( done ){
+				var self = this;
+
+				client
+					.url( "http://localhost:8080/" )
+					.execute( function onExecute( ){
+
+						return (
+							"todoListComponent" in window && 
+							typeof window[ "todoListComponent" ] == "function" &&
+							React.addons.TestUtils.isDescriptorOfType( todoListComponent( ), todoListComponent )
+						);
+
+					}, function onResult( error, result ){
+						assert.ok( result.value, self._runnable.title );
+					} )
+					.call( done );
+			} );
+
+		it( "should return a todoListComponent component instance when create( ) static method was called",
+			function testCase( done ){
+				var self = this;
+
+				client
+					.url( "http://localhost:8080/" )
+					.execute( function onExecute( ){
+						var component = todoListComponent.create( );
+
+						return React.addons.TestUtils.isDescriptorOfType( component, todoListComponent );
+
+					}, function onResult( error, result ){
+						assert.ok( result.value, self._runnable.title );
+					} )
+					.call( done );
+			} );
+
+		it( "should store the instance in the instanceSet static property when create( ) static method was called",
+			function testCase( done ){
+				var self = this;
+
+				client
+					.url( "http://localhost:8080/" )
+					.execute( function onExecute( ){
+						todoListComponent.emptyData( );
+
+						var mockTodoList = [ "mock-todo-list" ];
+						var mockParentComponent = { "mock": "parent-component" };
+
+						var component = todoListComponent.create( mockTodoList, mockParentComponent, false, "mockComponent" );
+
+						return (
+							todoListComponent.data.instanceSet[ "mockComponent" ] === component && 
+							_.keys( todoListComponent.data.instanceSet ).length == 1
+						);
+
+					}, function onResult( error, result ){
+						assert.ok( result.value, self._runnable.title );
+					} )
+					.call( done );
+			} );
+
+		it( "should have todoList and parentComponent in the props",
+			function testCase( done ){
+				var self = this;
+
+				client
+					.url( "http://localhost:8080/" )
+					.execute( function retrieveInitialStateSet( ){
+						var mockTodoList = [ "mock-todo-list" ];
+						var mockParentComponent = { "mock": "parent-component" };
+
+						var component = todoListComponent.create( mockParentComponent, mockTodoList );
+						
+						component = React.renderComponent( component, $( "body" )[ 0 ] );
+
+						return (
+							"todoList" in component.props && 
+							"parentComponent" in component.props &&
+							_.isArray( component.props.todoList ) &&
+							_.isEqual( component.props.todoList, mockTodoList ) &&
+							_.isEqual( component.props.parentComponent, mockParentComponent )
+						);
+							
+					}, function onResult( error, result ){
+
+						assert.ok( result.value, self._runnable.title );
+					} )
+					.call( done );
+			} );
+
+		it( "should store the instance in the instance static property when create( true ) static method was called with onlyOnce parameter set to true",
+			function testCase( done ){
+				var self = this;
+
+				client
+					.url( "http://localhost:8080/" )
+					.execute( function onExecute( ){
+						var mockTodoList = [ "mock-todo-list" ];
+						var mockParentComponent = { "mock": "parent-component" };
+
+						var component = todoListComponent.create( mockTodoList, mockParentComponent, true );
+
+						return todoListComponent.data.instance === component;
+
+					}, function onResult( error, result ){
+						assert.ok( result.value, self._runnable.title );
+					} )
+					.call( done );
+			} );
+
+		it( "should not store the instance in the instanceSet static property when create( true ) static method was called with onlyOnce parameter set to true",
+			function testCase( done ){
+				var self = this;
+
+				client
+					.url( "http://localhost:8080/" )
+					.execute( function onExecute( ){
+						var mockTodoList = [ "mock-todo-list" ];
+						var mockParentComponent = { "mock": "parent-component" };
+
+						var component = todoListComponent.create( mockTodoList, mockParentComponent, true );
+
+						return _.keys( todoListComponent.data.instanceSet ).length == 0;
+
+					}, function onResult( error, result ){
+						assert.ok( result.value, self._runnable.title );
+					} )
+					.call( done );
+			} );
+
+		it( "should have todoList as the initial state",
+			function testCase( done ){
+				var self = this;
+
+				client
+					.url( "http://localhost:8080/" )
+					.execute( function retrieveInitialStateSet( ){
+						var mockTodoList = [ "mock-todo-list" ];
+						var mockParentComponent = { "mock": "parent-component" };
+
+						var component = todoListComponent.create( mockTodoList, mockParentComponent, true );
+
+						var state = React.renderComponent( component, $( "body" )[ 0 ] ).state;
+
+						return "todoList" in state && _.isArray( state.todoList );	
+
+					}, function onResult( error, result ){
+
+						assert.ok( result.value, self._runnable.title );
+					} )
+					.call( done );
+			} );
+
 		it( "should increment list when user add 3 succeeding todo",
 			function testCase( done ){
 				client

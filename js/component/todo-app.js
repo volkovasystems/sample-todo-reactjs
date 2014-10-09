@@ -1,6 +1,35 @@
 /** @jsx React.DOM */
 
 var todoApp = React.createClass( {
+	"statics": {
+		"data": {
+			"instanceSet": { },
+			"instance": null
+		},
+
+		"create": function create( onlyOnce, uid ){
+			var uid = uid || Math.round( ( Date.now( ) * Math.random( ) ) + Date.now( ) ).toString( );
+
+			todoApp.data.instanceSet[ uid ] = ( <todoApp uid={ uid } /> );
+
+			if( onlyOnce ){
+				todoApp.data.instance = todoApp.data.instanceSet[ uid ];
+				todoApp.data.instanceSet[ uid ] = undefined;
+				delete todoApp.data.instanceSet[ uid ];
+
+				return todoApp.data.instance;
+				
+			}else{
+				return todoApp.data.instanceSet[ uid ];	
+			}
+		},
+
+		"emptyData": function emptyData( ){
+			todoApp.data.instanceSet = { };
+			todoApp.data.instance = null;
+		}
+	},
+
 	"getInitialState": function getInitialState( ){
 		return {
 			"todoList": [ ]
@@ -20,10 +49,10 @@ var todoApp = React.createClass( {
 					</div>
 
 					<div className="panel-body">
-						<todoInput parentComponent={ this } todoList={ this.state.todoList } />	
+						{ todoInputComponent.create( this, this.state.todoList, true, this.props.uid ) }
 					</div>
 
-					<todoList parentComponent={ this } todoList={ this.state.todoList }/>
+					{ todoListComponent.create( this, this.state.todoList, true, this.props.uid ) }
 				</div>
 			</div>
 		);
@@ -31,4 +60,4 @@ var todoApp = React.createClass( {
 } );
 
 
-React.renderComponent( <todoApp />, $( "section.todo-app" )[ 0 ] );
+React.renderComponent( todoApp.create( true ), $( "section.todo-app" )[ 0 ] );

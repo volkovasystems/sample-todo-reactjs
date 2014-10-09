@@ -1,6 +1,40 @@
 /** @jsx React.DOM */
 
-var todoList = React.createClass( {
+var todoListComponent = React.createClass( {
+	"statics": {
+		"data": {
+			"instanceSet": { },
+			"instance": null
+		},
+
+		"create": function create( parentComponent, todoList, onlyOnce, uid ){
+			var uid = uid || Math.round( ( Date.now( ) * Math.random( ) ) + Date.now( ) ).toString( );
+
+			todoListComponent.data.instanceSet[ uid ] = ( 
+				<todoListComponent 
+					uid={ uid }
+					parentComponent={ parentComponent }
+					todoList={ todoList } />  
+			);
+
+			if( onlyOnce ){
+				todoListComponent.data.instance = todoListComponent.data.instanceSet[ uid ];
+				todoListComponent.data.instanceSet[ uid ] = undefined;
+				delete todoListComponent.data.instanceSet[ uid ];
+
+				return todoListComponent.data.instance;
+				
+			}else{
+				return todoListComponent.data.instanceSet[ uid ];	
+			}
+		},
+
+		"emptyData": function emptyData( ){
+			todoListComponent.data.instanceSet = { };
+			todoListComponent.data.instance = null;
+		}
+	},
+
 	"getInitialState": function getInitialState( ){
 		return {
 			"todoList": [ ] 
@@ -53,7 +87,7 @@ var todoList = React.createClass( {
 			"todoList": nextProps.todoList
 		} );
 	},
-
+	
 	"render": function onRender( ){
 		return (
 			<div className="todo-list-container list-group">

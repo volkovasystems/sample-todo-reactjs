@@ -1,6 +1,40 @@
 /** @jsx React.DOM */
 
-var todoInput = React.createClass( {
+var todoInputComponent = React.createClass( {
+	"statics": {
+		"data": {
+			"instanceSet": { },
+			"instance": null
+		},
+
+		"create": function create( parentComponent, todoList, onlyOnce, uid ){
+			var uid = uid || Math.round( ( Date.now( ) * Math.random( ) ) + Date.now( ) ).toString( );
+
+			todoInputComponent.data.instanceSet[ uid ] = ( 
+				<todoInputComponent 
+					uid={ uid }
+					parentComponent={ parentComponent }
+					todoList={ todoList } />  
+			);
+
+			if( onlyOnce ){
+				todoInputComponent.data.instance = todoInputComponent.data.instanceSet[ uid ];
+				todoInputComponent.data.instanceSet[ uid ] = undefined;
+				delete todoInputComponent.data.instanceSet[ uid ];
+
+				return todoInputComponent.data.instance;
+				
+			}else{
+				return todoInputComponent.data.instanceSet[ uid ];	
+			}
+		},
+
+		"emptyData": function emptyData( ){
+			todoInputComponent.data.instanceSet = { };
+			todoInputComponent.data.instance = null;
+		}
+	},
+
 	"getInitialState": function getInitialState( ){
 		return {
 			"todo": ""
@@ -28,7 +62,7 @@ var todoInput = React.createClass( {
 			} );
 		}
 	},
-
+	
 	"render": function onRender( ){
 		return (
 			<div className="todo-input-container">
