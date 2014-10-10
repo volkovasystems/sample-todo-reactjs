@@ -36,23 +36,24 @@ QUnit.module( "todoApp ReactJS component class.", {
 		}
 	}
 } );
-QUnit.test( "todoApp should be global.",
+QUnit.test( "todoApp should be a global namespace.",
 	function testCase( assert ){
-		assert.ok( "todoApp" in window, "todoApp to be global" );
+		assert.ok( "todoApp" in window, "todoApp is a global namespace." );
 	} );
 QUnit.test( "todoApp should be a function.",
 	function testCase( assert ){
-		assert.ok( typeof window[ "todoApp" ] == "function", "todoApp to be a function" );
+		assert.ok( typeof window[ "todoApp" ] == "function", "todoApp is a function." );
 	} );
-QUnit.test( "todoApp( ) should be a descriptor of type todoApp",
+QUnit.test( "Calling todoApp( ) should return a descriptor of type todoApp",
 	function testCase( assert ){
-		assert.ok( React.addons.TestUtils.isDescriptorOfType( todoApp( ), todoApp ), "todoApp( ) to be a descriptor of todoApp" );
+		assert.ok( React.addons.TestUtils.isDescriptorOfType( todoApp( ), todoApp ), "todoApp( ) returns a descriptor of todoApp." );
 	} );
-QUnit.test( "todoApp should load todoInputComponent",
+QUnit.test( "todoApp should load todoInputComponent.",
 	function testCase( assert ){
-		assert.ok( todoInputComponent.create.called );
+		assert.ok( todoInputComponent.create.calledOnce, "todoInputComponent is called once on every todoApp initialization." );
+
 	} );
-QUnit.test( "todoApp should load todoListComponent",
+QUnit.test( "todoApp should load todoListComponent.",
 	function testCase( assert ){
-		assert.ok( todoListComponent.create.called );
+		assert.ok( todoListComponent.create.calledOnce, "todoListComponent is called once on every todoApp initialization." );
 	} );
